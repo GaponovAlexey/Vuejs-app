@@ -1,5 +1,6 @@
 <template>
   <h1>
+    <Add/>
     <div>
       <button v-on:click="addLike" >Like</button>
       <button @click="addDislike" >Dislike</button>
