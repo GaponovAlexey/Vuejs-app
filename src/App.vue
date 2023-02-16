@@ -1,7 +1,7 @@
 <template>
   <div class="app">
-  <PostForm  />
-  <PostList :post="post" />
+  <PostForm @create="CreatePost" />
+  <PostList :post="post"  />
   </div>
 </template>
 
@@ -27,17 +27,8 @@ export default {
     };
   },
   methods: {
-    CreatePost(e) {
-      // e.stopPropagation()
-      // e.preventDefault()
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body,
-      };
-      this.post.push(newPost);
-      this.title = "";
-      this.body = "";
+    CreatePost(post) {
+      this.post.push(post)
     },
   },
 };
