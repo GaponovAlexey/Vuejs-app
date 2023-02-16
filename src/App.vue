@@ -1,31 +1,19 @@
 <template>
   <div class="app">
-    <form @submit.prevent class="form">
-      <input
-        v-bind:value="title"
-        @input="title = $event.target.value"
-        class="input"
-        type="text"
-        placeholder="name"
-      />
-      <input
-        v-bind:value="body"
-        @input="body = $event.target.value"
-        class="input"
-        type="text"
-        placeholder="description"
-      />
-      <button class="btn" @click="CreatePost">send</button>
-    </form>
-    <div class="post" v-for="post in post">
-      <div><strong>name:</strong>{{ post.title }}</div>
-      <div><strong>desc:</strong>{{ post.body }}</div>
-    </div>
+  <PostForm  />
+  <PostList :post="post" />
   </div>
 </template>
 
 <script>
+import PostForm from "@/components/PostForm.vue";
+import PostList from "./components/PostList.vue";
+
 export default {
+  components: {
+    PostForm,
+    PostList,
+  },
   data() {
     return {
       post: [
@@ -47,9 +35,9 @@ export default {
         title: this.title,
         body: this.body,
       };
-      this.post.push(newPost)
-      this.title = ''
-      this.body = ''
+      this.post.push(newPost);
+      this.title = "";
+      this.body = "";
     },
   },
 };
@@ -64,28 +52,5 @@ export default {
 }
 .app {
   padding: 20px;
-}
-.post {
-  padding: 15px;
-  border: 1px solid teal;
-  margin-top: 15px;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-}
-.btn {
-  margin-top: 15px;
-  align-self: flex-end;
-  padding: 10px 15px;
-  background: none;
-  color: teal;
-  border: 1px solid teal;
-}
-.input {
-  width: 100%;
-  border: 1px solid orange;
-  padding: 10px 15px;
-  margin-top: 15px;
 }
 </style>
