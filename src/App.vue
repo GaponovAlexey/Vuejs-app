@@ -1,9 +1,21 @@
 <template>
   <div class="app">
     <form class="form">
-      <input class="input" type="text" placeholder="name" />
-      <input class="input" type="text" placeholder="desc" />
-      <button class="btn" >send</button>
+      <input
+        v-bind:value="title"
+        @input="title = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="name"
+      />
+      <input
+        v-bind:value="body"
+        @input="body = $event.target.value"
+        class="input"
+        type="text"
+        placeholder="description"
+      />
+      <button class="btn" @click="CreatePost">send</button>
     </form>
     <div class="post" v-for="post in post">
       <div><strong>name:</strong>{{ post.title }}</div>
@@ -22,26 +34,20 @@ export default {
         { id: 3, title: "Rast", body: "describe3" },
         { id: 4, title: "Air", body: "describe3" },
       ],
+      title: "",
+      body: "",
     };
   },
-  methods: {
-    addLike() {
-      this.likes += 1;
-      this.dislike -= 1;
-    },
-    addDislike() {
-      this.dislike += 1;
-      this.likes -= 1;
-    },
-  },
+  
 };
 </script>
 
 <style>
 * {
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
+  max-width: 50rem;
 }
 .app {
   padding: 20px;
@@ -53,7 +59,7 @@ export default {
 }
 .form {
   display: flex;
-  flex-direction: col;
+  flex-direction: column;
 }
 .btn {
   margin-top: 15px;
@@ -61,7 +67,7 @@ export default {
   padding: 10px 15px;
   background: none;
   color: teal;
-  border: 1px solid teal ;
+  border: 1px solid teal;
 }
 .input {
   width: 100%;
