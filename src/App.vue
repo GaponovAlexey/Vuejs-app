@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <form class="form">
+    <form @submit.prevent class="form">
       <input
         v-bind:value="title"
         @input="title = $event.target.value"
@@ -38,7 +38,20 @@ export default {
       body: "",
     };
   },
-  
+  methods: {
+    CreatePost(e) {
+      // e.stopPropagation()
+      // e.preventDefault()
+      const newPost = {
+        id: Date.now(),
+        title: this.title,
+        body: this.body,
+      };
+      this.post.push(newPost)
+      this.title = ''
+      this.body = ''
+    },
+  },
 };
 </script>
 
