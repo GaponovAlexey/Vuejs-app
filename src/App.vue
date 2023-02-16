@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <h1>
     <Add/>
     <div>
@@ -35,4 +35,26 @@ export default {
 };
 </script>
 
-<style></style>
+<style></style> -->
+
+<template>
+  <h1>hi</h1>
+  <div>one {{ count }}</div>
+  <div>two</div>
+  <button @:click="add" >+</button>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    add() {
+      this.count ++
+    }
+  }
+};
+</script>
