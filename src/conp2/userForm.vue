@@ -1,20 +1,34 @@
 <template>
   <form @submit.prevent class="form">
-      <input class="input" v-model="title" type="text" />
-      <input class="input" v-model="body" type="text" />
-      <button class="btn" @click="addData">add</button>
-    </form>
+    <input class="input" v-model="post.title" type="text" />
+    <input class="input" v-model="post.body" type="text" />
+    <button class="btn" @click="CreatePost">add</button>
+  </form>
 </template>
 
 <script>
-
+export default {
+  data() {
+    return {
+      post: {
+        id: Date.now(),
+        title: "",
+        body: "",
+      },
+      
+    };
+  },
+  methods: {
+    CreatePost(e) {
+      this.$emit("post", this.post);
+    },
+  },
+};
 </script>
 
 <style>
-
 .form {
   display: flex;
-  flex-direction: column;
 }
 .btn {
   margin-top: 15px;

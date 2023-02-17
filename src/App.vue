@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <h1>Form</h1>
-    <userForm />
+    <userForm @post="fromUserPost" />
     <userList :allData="userData" />
   </div>
 </template>
@@ -13,7 +13,7 @@ import userList from "./conp2/userList.vue";
 export default {
   components: {
     userForm,
-    userList
+    userList,
   },
   data() {
     return {
@@ -27,15 +27,8 @@ export default {
     };
   },
   methods: {
-    addData() {
-      const newData = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body,
-      };
-      this.userData.push(newData);
-      this.body = "";
-      this.title = "";
+    fromUserPost(post) {
+      this.userData.push(post)
     },
   },
 };

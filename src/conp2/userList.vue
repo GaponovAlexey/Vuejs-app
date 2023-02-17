@@ -10,6 +10,8 @@ export default {
   props: {
     allData: {
       type: Array,
+      required: false,
+
     },
   },
 };
