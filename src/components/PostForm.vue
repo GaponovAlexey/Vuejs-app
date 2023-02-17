@@ -23,17 +23,19 @@ export default {
   },
   methods: {
     CreatePost(e) {
-      this.post.id = Date.now();
-      this.$emit("create", this.post);
-      this.post = {
-        title: "",
-        body: "",
-      };
+      if (this.post.body.length >= 3) {
+        this.post.id = Date.now();
+        this.$emit("create", this.post);
+        this.post = {
+          title: "",
+          body: "",
+        };
+      }
     },
   },
 };
 </script>
-<style>
+<style  >
 .form {
   display: flex;
   flex-direction: column;

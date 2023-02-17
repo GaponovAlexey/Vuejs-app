@@ -1,40 +1,47 @@
 <template>
   <div class="app">
-  <PostForm @create="CreatePost" />
-  <PostList :post="post"  />
+    <h1>Form</h1>
+    <userForm />
+    <userList :allData="userData" />
   </div>
 </template>
 
 <script>
-import PostForm from "@/components/PostForm.vue";
-import PostList from "./components/PostList.vue";
+import userForm from "./conp2/userForm.vue";
+import userList from "./conp2/userList.vue";
 
 export default {
   components: {
-    PostForm,
-    PostList,
+    userForm,
+    userList
   },
   data() {
     return {
-      post: [
-        { id: 1, title: "javascript", body: "describe1" },
-        { id: 2, title: "Go", body: "describe2" },
-        { id: 3, title: "Rast", body: "describe3" },
-        { id: 4, title: "Air", body: "describe3" },
+      userData: [
+        { id: 1, title: "kid", body: "canada" },
+        { id: 2, title: "million", body: "canada" },
+        { id: 3, title: "home", body: "USA" },
       ],
       title: "",
       body: "",
     };
   },
   methods: {
-    CreatePost(post) {
-      this.post.push(post)
+    addData() {
+      const newData = {
+        id: Date.now(),
+        title: this.title,
+        body: this.body,
+      };
+      this.userData.push(newData);
+      this.body = "";
+      this.title = "";
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 * {
   margin: 0 auto;
   padding: 0;
@@ -43,5 +50,8 @@ export default {
 }
 .app {
   padding: 20px;
+}
+h1 {
+  text-align: center;
 }
 </style>

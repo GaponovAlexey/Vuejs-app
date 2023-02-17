@@ -1,23 +1,20 @@
 <template>
-  <div class="post" v-for="post in ter">
-    <div><strong>name:</strong>{{ post.title }}</div>
-    <div><strong>desc:</strong>{{ post.body }}</div>
+  <div class="post" v-for="el in allData">
+    <div><strong>Title: </strong> {{ el.title }}</div>
+    <div>Body: {{ el.body }}</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    ter: {
+    allData: {
       type: Array,
-      required: true,
     },
   },
-  
 };
 </script>
-
-<style >
+<style>
 .post {
   padding: 15px;
   border: 1px solid teal;
