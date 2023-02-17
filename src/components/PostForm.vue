@@ -7,12 +7,19 @@
       type="text"
       placeholder="description"
     />
-    <button class="btn" @click="CreatePost">send</button>
+    <!-- inline style test -->
+    <MyButton class="btn" style="align-self: flex-end" @click="CreatePost"
+      >send</MyButton
+    >
   </form>
 </template>
 
 <script>
+import MyButton from "./UI/MyButton.vue";
 export default {
+  components: {
+    MyButton,
+  },
   data() {
     return {
       post: {
@@ -35,7 +42,7 @@ export default {
   },
 };
 </script>
-<style  >
+<style>
 .form {
   display: flex;
   flex-direction: column;
@@ -47,6 +54,10 @@ export default {
   background: none;
   color: teal;
   border: 1px solid teal;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: rgb(175, 197, 197);
 }
 .input {
   width: 100%;

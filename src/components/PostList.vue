@@ -1,15 +1,16 @@
 <template>
-  <div class="post" v-for="post in allData">
-    <div><strong>Name:</strong>{{ post.title }}</div>
-    <div><strong>Desc:</strong>{{ post.body }}</div>
-  </div>
+  <PostItem :post="allData" />
 </template>
 
 <script>
+import PostItem from "./PostItem.vue";
 export default {
+  components: {
+    PostItem,
+  },
   props: {
     allData: {
-      type: Array,
+      type: Object,
       required: true,
     },
   },
@@ -17,9 +18,5 @@ export default {
 </script>
 
 <style>
-.post {
-  padding: 15px;
-  border: 1px solid teal;
-  margin-top: 15px;
-}
+
 </style>
