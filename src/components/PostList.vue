@@ -1,5 +1,5 @@
 <template>
-  <div class="post" v-for="post in ter">
+  <div class="post" v-for="post in allData">
     <div><strong>name:</strong>{{ post.title }}</div>
     <div><strong>desc:</strong>{{ post.body }}</div>
   </div>
@@ -8,7 +8,7 @@
 <script>
 export default {
   props: {
-    ter: {
+    allData: {
       type: Array,
       required: true,
     },
