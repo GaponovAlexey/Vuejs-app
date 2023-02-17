@@ -8,17 +8,13 @@
       <div><strong>desc:</strong>{{ post.body }}</div>
     </div>
     <div class="btn_dell">
-      <MyButton>delete</MyButton>
+      <my-button>delete</my-button>
     </div>
   </div>
 </template>
 
 <script>
-import MyButton from './UI/MyButton.vue'
 export default {
-  components: {
-    MyButton
-  },
   props: {
     post: {
       type: Array,

@@ -1,25 +1,18 @@
 <template>
-  <form @submit.prevent class="form">
-    <input v-model="post.title" class="input" type="text" placeholder="name" />
-    <input
-      v-model="post.body"
-      class="input"
-      type="text"
-      placeholder="description"
-    />
+  <form @submit.prevent>
+    <my-input v-model="post.title" type="text" placeholder="name" />
+    <my-input v-model="post.body" type="text" placeholder="description" />
     <!-- inline style test -->
-    <MyButton class="btn" style="align-self: flex-end" @click="CreatePost"
-      >send</MyButton
+    <my-button
+      style="align-self: flex-end; margin-top: 15px"
+      @click="CreatePost"
+      >send</my-button
     >
   </form>
 </template>
 
 <script>
-import MyButton from "./UI/MyButton.vue";
 export default {
-  components: {
-    MyButton,
-  },
   data() {
     return {
       post: {
@@ -43,12 +36,11 @@ export default {
 };
 </script>
 <style>
-.form {
+form {
   display: flex;
   flex-direction: column;
 }
 .btn {
-  margin-top: 15px;
   align-self: flex-end;
   padding: 10px 15px;
   background: none;
@@ -58,11 +50,5 @@ export default {
 }
 .btn:hover {
   background-color: rgb(175, 197, 197);
-}
-.input {
-  width: 100%;
-  border: 1px solid orange;
-  padding: 10px 15px;
-  margin-top: 15px;
 }
 </style>
