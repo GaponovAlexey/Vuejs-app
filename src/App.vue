@@ -1,8 +1,11 @@
 <template>
   <div class="app">
-    <h1>Form</h1>
-    <post-form @create="CreatePost" />
-    <post-List :post="userData" @remove="DeletePost" />
+    <div  >
+      <h1>Form</h1>
+      <post-form @create="CreatePost" />
+    </div>
+    <post-List v-if="userData.length > 0" :post="userData" @remove="DeletePost" />
+    <div v-else >..Loading</div>
   </div>
 </template>
 
