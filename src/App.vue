@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <h1>Form</h1>
-    <post-form @create="fromUserPost" />
-    <post-List :allData="userData" />
+    <post-form @create="CreatePost" />
+    <post-List :post="userData" @remove="DeletePost" />
   </div>
 </template>
 
@@ -20,8 +20,13 @@ export default {
     };
   },
   methods: {
-    fromUserPost(post) {
+    CreatePost(post) {
       this.userData.push(post);
+    },
+    DeletePost(e) {
+      console.log(e.id);
+
+      this.userData = this.userData.filter((p) => p.id !== e.id);
     },
   },
 };

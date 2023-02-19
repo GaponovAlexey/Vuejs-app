@@ -1,12 +1,12 @@
 <template>
-  <post-item :post="allData" />
+  <post-item :posts="post" @remove:="$emit('remove', post)" :key="post.id" />
 </template>
 
 <script>
 export default {
   name: "post-List",
   props: {
-    allData: {
+    post: {
       type: Object,
       required: true,
     },
