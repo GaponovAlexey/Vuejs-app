@@ -2,19 +2,12 @@
   <div class="app">
     <h1>Form</h1>
     <post-form @create="fromUserPost" />
-    <PostList :allData="userData" />
+    <post-List :allData="userData" />
   </div>
 </template>
 
 <script>
-// import PostForm from "./components/PostForm.vue";
-import PostList from "./components/PostList.vue";
-
 export default {
-  components: {
-    // PostForm,
-    PostList,
-  },
   data() {
     return {
       userData: [
@@ -28,7 +21,7 @@ export default {
   },
   methods: {
     fromUserPost(post) {
-      this.userData.push(post)
+      this.userData.push(post);
     },
   },
 };

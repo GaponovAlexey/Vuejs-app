@@ -1,13 +1,10 @@
 <template>
-  <PostItem :post="allData" />
+  <post-item :post="allData" />
 </template>
 
 <script>
-import PostItem from "./PostItem.vue";
 export default {
-  components: {
-    PostItem,
-  },
+  name: "post-List",
   props: {
     allData: {
       type: Object,
