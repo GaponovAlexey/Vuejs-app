@@ -9,7 +9,6 @@
       >send</my-button
     >
   </form>
-  
 </template>
 
 <script>
@@ -17,6 +16,7 @@ export default {
   data() {
     return {
       post: {
+        id: Date.now(),
         title: "",
         body: "",
       },
@@ -25,7 +25,6 @@ export default {
   methods: {
     CreatePost(e) {
       if (this.post.body.length >= 3) {
-        this.post.id = Date.now();
         this.$emit("create", this.post);
         this.post = {
           title: "",
@@ -36,6 +35,9 @@ export default {
   },
 };
 </script>
+
+<!-- style -->
+
 <style>
 form {
   display: flex;
