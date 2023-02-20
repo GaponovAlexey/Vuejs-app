@@ -58,7 +58,7 @@ export default {
             "https://jsonplaceholder.typicode.com/posts?_limit=10"
           );
           this.userData = res.data;
-        }, 500);
+        }, 250);
       } catch (error) {
         alert(error);
       }
