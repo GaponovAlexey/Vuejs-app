@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     CreatePost(post) {
-      this.userData.push(post);
+      this.userData.unshift(post);
       this.dialogVisible = false;
     },
     DeletePost(e) {
@@ -69,7 +69,7 @@ export default {
   },
   watch: {
     selectSort() {
-      
+
     }
   }
 };
