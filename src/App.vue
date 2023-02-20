@@ -1,8 +1,12 @@
 <template>
   <div class="app">
-    <div>
+    <div class="app__buttons">
       <h1>list post</h1>
       <my-button @click="showDialog">Create Post</my-button>
+      <my-select
+      v-model="selectSort"
+      :options="sortOptions"
+       />
     </div>
     <my-dialog v-model:show="dialogVisible">
       <h1>Form</h1>
@@ -27,6 +31,11 @@ export default {
       body: "",
       dialogVisible: false,
       modificatorModel: "",
+      selectSort: "",
+      sortOptions: [
+        {value: 'title', name: 'sort of name'},
+        {value: 'body', name: 'sort of body'},
+      ]
     };
   },
   methods: {
@@ -46,7 +55,7 @@ export default {
       try {
         setTimeout(async () => {
           const res = await axios.get(
-            "https://jsonplaceholder.typicode.com/todos?_limit=10"
+            "https://jsonplaceholder.typicode.com/posts?_limit=10"
           );
           this.userData = res.data;
         }, 500);
@@ -73,5 +82,9 @@ export default {
 }
 h1 {
   text-align: center;
+}
+.app__buttons {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
