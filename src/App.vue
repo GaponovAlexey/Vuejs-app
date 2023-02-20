@@ -64,9 +64,14 @@ export default {
       }
     },
   },
-  beforeMount() {
+  mounted() {
     this.fetchPost();
   },
+  watch: {
+    selectSort() {
+      
+    }
+  }
 };
 </script>
 
