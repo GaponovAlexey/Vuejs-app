@@ -1,12 +1,10 @@
 <template>
   <div class="app">
     <div class="app__buttons">
-      <h1>list post</h1>
+      <h1>Vue.js</h1>
       <my-button @click="showDialog">Create Post</my-button>
-      <my-select
-      v-model="selectSort"
-      :options="sortOptions"
-       />
+      <my-input v-model="searchQuery" type="text" placeholder="search" />
+      <my-select v-model="selectSort" :options="sortOptions" />
     </div>
     <my-dialog v-model:show="dialogVisible">
       <h1>Form</h1>
@@ -14,7 +12,7 @@
     </my-dialog>
     <post-List
       v-if="userData.length > 0"
-      :post="userData"
+      :post="sortedAndSearchPost"
       @remove="DeletePost"
     />
     <div v-else>..Loading</div>
@@ -24,18 +22,18 @@
 <script>
 import axios from "axios";
 export default {
+  emits: ["remove"],
   data() {
     return {
       userData: [],
-      title: "",
-      body: "",
       dialogVisible: false,
       modificatorModel: "",
       selectSort: "",
+      searchQuery: "",
       sortOptions: [
-        {value: 'title', name: 'sort of name'},
-        {value: 'body', name: 'sort of body'},
-      ]
+        { value: "title", name: "sort of name" },
+        { value: "body", name: "sort of body" },
+      ],
     };
   },
   methods: {
@@ -44,8 +42,6 @@ export default {
       this.dialogVisible = false;
     },
     DeletePost(e) {
-      console.log(e.id);
-
       this.userData = this.userData.filter((p) => p.id !== e.id);
     },
     showDialog() {
@@ -60,18 +56,31 @@ export default {
           this.userData = res.data;
         }, 250);
       } catch (error) {
-        alert(error);
+        // alert(error);
+        console.log(error);
       }
     },
   },
   mounted() {
     this.fetchPost();
   },
-  watch: {
-    selectSort() {
-
+  // watch: {
+  //   selectSort(newValue) {
+  //     this.userData.sort((post1, post2) => {
+  //       return post1[newValue]?.localeCompare(post2[newValue]);
+  //     });
+  //   },
+  // },
+  computed: {
+    sortedPost() {
+      return [...this.userData].sort((e1, e2) => {
+        return e1[this.selectSort]?.localeCompare(e2[this.selectSort]);
+      });
+    },
+    sortedAndSearchPost() {
+      return this.sortedPost.filter(post => post.title.includes(this.searchQuery))
     }
-  }
+  },
 };
 </script>
 
