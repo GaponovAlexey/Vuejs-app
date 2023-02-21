@@ -16,17 +16,7 @@
       @remove="DeletePost"
     />
     <div v-else>..Loading</div>
-    <div class="page__wrapper">
-      <div
-        class="page"
-        :class="{ 'current-page': page === pageNumber }"
-        v-for="pageNumber in totalPage"
-        @click="changePage(pageNumber)"
-        :key="pageNumber"
-      >
-        {{ pageNumber }}
-      </div>
-    </div>
+    <div ref="observer" class="observer"></div>
   </div>
 </template>
 
@@ -61,9 +51,6 @@ export default {
     showDialog() {
       this.dialogVisible = !this.dialogVisible;
     },
-    changePage(pageNumber) {
-      this.page= pageNumber
-    },
     async fetchPost() {
       try {
         setTimeout(async () => {
@@ -84,9 +71,42 @@ export default {
         console.log(error);
       }
     },
+    async loadMorePosts() {
+      try {
+        this.page += 1;
+        setTimeout(async () => {
+          const res = await axios.get(
+            "https://jsonplaceholder.typicode.com/posts/",
+            {
+              params: {
+                _page: this.page,
+                _limit: this.limit,
+              },
+            }
+          );
+          this.totalPage = Math.ceil(res.headers["x-total-count"] / this.limit);
+          this.userData = [...this.userData, ...res.data];
+        }, 250);
+      } catch (error) {
+        // alert(error);
+        console.log(error);
+      }
+    },
   },
   mounted() {
     this.fetchPost();
+    const options = {
+      rootMargin: "0px",
+      threshold: 1.0,
+    };
+    const callback = (entries, observer) => {
+      if (entries[0].isIntersecting) {
+        console.log("Ger");
+        this.loadMorePosts();
+      }
+    };
+    const observer = new IntersectionObserver(callback, options);
+    observer.observe(this.$refs.observer);
   },
   computed: {
     sortedPost() {
@@ -100,11 +120,6 @@ export default {
       );
     },
   },
-  watch: {
-    page() {
-      this.fetchPost()
-    }
-  }
 };
 </script>
 
@@ -125,18 +140,8 @@ h1 {
   display: flex;
   justify-content: space-between;
 }
-.page__wrapper {
-  display: flex;
-  margin-top: 15px;
-}
-.page {
-  border: 1px solid black;
-  cursor: pointer;
-  padding: 10px;
-}
-.current-page {
-  color: aqua;
-  font-size: 20px;
-
+.observer {
+  height: 30px;
+  background: green;
 }
 </style>
