@@ -3,7 +3,7 @@
     <h3>list Users</h3>
   </div>
   <TransitionGroup name="list" tah="ul">
-    <div class="post" v-for="post in posts" :key="posts.id">
+    <div class="post" v-for="post in posts" :key="post.id">
       <div>
         <div><strong>name:</strong>{{ post.title }}</div>
         <div><strong>desc:</strong>{{ post.body }}</div>

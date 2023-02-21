@@ -1,0 +1,28 @@
+<template>
+  <div class="navbar">
+    <div>Vue 3</div>
+    <div>
+      <my-button @click="$router.push('/posts')">Users</my-button>
+      <my-button @click="$router.push('/about')" style="margin-left: 20px"
+        >About</my-button
+      >
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Navbar",
+};
+</script>
+
+<style scoped>
+.navbar {
+  height: 50px;
+  background-color: teal;
+  box-sizing: 2px 2px 4px gray;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+}
+</style>
