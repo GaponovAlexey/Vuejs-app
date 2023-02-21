@@ -16,6 +16,17 @@
       @remove="DeletePost"
     />
     <div v-else>..Loading</div>
+    <div class="page__wrapper">
+      <div
+        class="page"
+        :class="{ 'current-page': page === pageNumber }"
+        v-for="pageNumber in totalPage"
+        @click="changePage(pageNumber)"
+        :key="pageNumber"
+      >
+        {{ pageNumber }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +41,9 @@ export default {
       modificatorModel: "",
       selectSort: "",
       searchQuery: "",
+      page: 1,
+      limit: 10,
+      totalPage: 0,
       sortOptions: [
         { value: "title", name: "sort of name" },
         { value: "body", name: "sort of body" },
@@ -47,12 +61,22 @@ export default {
     showDialog() {
       this.dialogVisible = !this.dialogVisible;
     },
+    changePage(pageNumber) {
+      this.page= pageNumber
+    },
     async fetchPost() {
       try {
         setTimeout(async () => {
           const res = await axios.get(
-            "https://jsonplaceholder.typicode.com/posts?_limit=10"
+            "https://jsonplaceholder.typicode.com/posts/",
+            {
+              params: {
+                _page: this.page,
+                _limit: this.limit,
+              },
+            }
           );
+          this.totalPage = Math.ceil(res.headers["x-total-count"] / this.limit);
           this.userData = res.data;
         }, 250);
       } catch (error) {
@@ -64,13 +88,6 @@ export default {
   mounted() {
     this.fetchPost();
   },
-  // watch: {
-  //   selectSort(newValue) {
-  //     this.userData.sort((post1, post2) => {
-  //       return post1[newValue]?.localeCompare(post2[newValue]);
-  //     });
-  //   },
-  // },
   computed: {
     sortedPost() {
       return [...this.userData].sort((e1, e2) => {
@@ -78,9 +95,16 @@ export default {
       });
     },
     sortedAndSearchPost() {
-      return this.sortedPost.filter(post => post.title.includes(this.searchQuery))
-    }
+      return this.sortedPost.filter((post) =>
+        post.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    },
   },
+  watch: {
+    page() {
+      this.fetchPost()
+    }
+  }
 };
 </script>
 
@@ -100,5 +124,19 @@ h1 {
 .app__buttons {
   display: flex;
   justify-content: space-between;
+}
+.page__wrapper {
+  display: flex;
+  margin-top: 15px;
+}
+.page {
+  border: 1px solid black;
+  cursor: pointer;
+  padding: 10px;
+}
+.current-page {
+  color: aqua;
+  font-size: 20px;
+
 }
 </style>
