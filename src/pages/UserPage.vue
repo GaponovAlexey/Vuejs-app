@@ -95,18 +95,7 @@ export default {
   },
   mounted() {
     this.fetchPost();
-    // const options = {
-    //   rootMargin: "0px",
-    //   threshold: 1.0,
-    // };
-    // const callback = (entries, observer) => {
-    //   if (entries[0].isIntersecting && this.page < this.totalPage) {
-    //     console.log("Ger");
-    //     this.loadMorePosts();
-    //   }
-    // };
-    // const observer = new IntersectionObserver(callback, options);
-    // observer.observe(this.$refs.observer);
+    
   },
   computed: {
     sortedPost() {
