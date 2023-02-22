@@ -9,6 +9,7 @@
         <div><strong>desc:</strong>{{ post.body }}</div>
       </div>
       <div class="btn_dell">
+        <my-button @click="$router.push(`/posts/${post.id}`)">open</my-button>
         <my-button @click="onClick(post)">delete</my-button>
       </div>
     </div>
@@ -51,5 +52,9 @@ export default {
 .list-leave-to {
   opacity: 0;
   transform: translateX(130px);
+}
+.btn_dell {
+  display: flex;
+  margin-left: 10px;
 }
 </style>

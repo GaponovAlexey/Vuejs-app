@@ -14,5 +14,6 @@ export default {
 .hi {
   color: teal;
   font-size: 30px;
+  text-align: center;
 }
 </style>
