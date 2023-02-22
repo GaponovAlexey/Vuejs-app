@@ -3,7 +3,7 @@
     <div class="app__buttons">
       <h1>Vue.js</h1>
       <my-button @click="showDialog">Create Post</my-button>
-      <my-input v-model="searchQuery" type="text" placeholder="search" />
+      <my-input v-focus v-model="searchQuery" type="text" placeholder="search" />
       <my-select v-model="selectSort" :options="sortOptions" />
     </div>
     <my-dialog v-model:show="dialogVisible">
@@ -16,7 +16,7 @@
       @remove="DeletePost"
     />
     <div v-else>..Loading</div>
-    <div ref="observer" class="observer"></div>
+    <div v-intersection="loadMorePosts" class="observer"></div>
   </div>
 </template>
 
@@ -95,18 +95,18 @@ export default {
   },
   mounted() {
     this.fetchPost();
-    const options = {
-      rootMargin: "0px",
-      threshold: 1.0,
-    };
-    const callback = (entries, observer) => {
-      if (entries[0].isIntersecting && this.page < this.totalPage) {
-        console.log("Ger");
-        this.loadMorePosts();
-      }
-    };
-    const observer = new IntersectionObserver(callback, options);
-    observer.observe(this.$refs.observer);
+    // const options = {
+    //   rootMargin: "0px",
+    //   threshold: 1.0,
+    // };
+    // const callback = (entries, observer) => {
+    //   if (entries[0].isIntersecting && this.page < this.totalPage) {
+    //     console.log("Ger");
+    //     this.loadMorePosts();
+    //   }
+    // };
+    // const observer = new IntersectionObserver(callback, options);
+    // observer.observe(this.$refs.observer);
   },
   computed: {
     sortedPost() {
