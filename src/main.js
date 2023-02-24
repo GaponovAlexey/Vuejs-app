@@ -7,6 +7,7 @@ import componentsUI from "./components/UI";
 import components from "./components";
 import router from "@/router/router";
 import directives from "./directives";
+import store from "./store";
 
 const app = createApp(App);
 
@@ -21,4 +22,5 @@ directives.forEach((dir) => {
 });
 
 app.use(router);
+app.use(store);
 app.mount("#app");
