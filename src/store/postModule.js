@@ -49,6 +49,7 @@ export const postModule = {
       state.totalPage = totalPage;
     },
   },
+  
   actions: {
     async fetchPost({ state, commit }) {
       try {
