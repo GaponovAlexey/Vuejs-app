@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const postModule = {
   state: () => ({
     userData: [],
@@ -15,7 +17,7 @@ export const postModule = {
   }),
   getters: {
     sortedPost(state) {
-      return [state.userData].sort((e1, e2) => {
+      return [...state.userData].sort((e1, e2) => {
         return e1[state.selectSort]?.localeCompare(e2[state.selectSort]);
       });
     },
@@ -25,7 +27,7 @@ export const postModule = {
       );
     },
   },
-  mutation: {
+  mutations: {
     setPosts(state, userData) {
       state.userData = userData;
     },
@@ -49,7 +51,7 @@ export const postModule = {
       state.totalPage = totalPage;
     },
   },
-  
+
   actions: {
     async fetchPost({ state, commit }) {
       try {
@@ -58,39 +60,45 @@ export const postModule = {
           "https://jsonplaceholder.typicode.com/posts/",
           {
             params: {
-              _page: this.page,
-              _limit: this.limit,
+              _page: state.page,
+              _limit: state.limit,
             },
           }
         );
-        commit("setLoading", false);
-        this.totalPage = Math.ceil(res.headers["x-total-count"] / this.limit);
-        this.userData = res.data;
+
+        commit(
+          "setTotalPage",
+          Math.ceil(res.headers["x-total-count"] / state.limit)
+        );
+        commit("setPosts", res.data);
       } catch (error) {
         // alert(error);
         console.log(error);
+      } finally {
+        commit("setLoading", false);
       }
     },
-    async loadMorePosts() {
+    async loadMorePosts({ state, commit }) {
       try {
-        this.page += 1;
-        setTimeout(async () => {
-          const res = await axios.get(
-            "https://jsonplaceholder.typicode.com/posts/",
-            {
-              params: {
-                _page: this.page,
-                _limit: this.limit,
-              },
-            }
-          );
-          this.totalPage = Math.ceil(res.headers["x-total-count"] / this.limit);
-          this.userData = [...this.userData, ...res.data];
-        }, 250);
+        // commit("setPage", state.page + 1, {root: true});
+        const res = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts/",
+          {
+            params: {
+              _page: state.page,
+              _limit: state.limit,
+            },
+          }
+        );
+        commit(
+          "setTotalPage",
+          Math.ceil(res.headers["x-total-count"] / state.limit)
+        );
+        commit("setPosts", [...state.userData, ...res.data]);
       } catch (error) {
-        // alert(error);
-        console.log(error);
+        console.log("loadtwo", error);
       }
     },
   },
+  namespaced: true,
 };
