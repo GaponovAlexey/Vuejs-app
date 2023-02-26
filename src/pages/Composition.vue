@@ -55,7 +55,6 @@ export default {
     console.log("outside",useSortedPost )
     
     const { searchQuery,sortedAndSearchPost } = useSortedAndSearch(useSortedPost);
-    console.log("sortedAndSearchPost", sortedAndSearchPost);
     // console.log("sortedPost", useSortedPost);
     // console.log("sortedAndSearchPost", sortedAndSearchPost);
 
