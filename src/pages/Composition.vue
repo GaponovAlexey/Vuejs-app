@@ -4,7 +4,7 @@
       <h1>Vue.js</h1>
       <my-input
         v-focus
-        :module-value="searchQuery"
+        :module-value="selectedSort"
         @update:model-value="setSearchQuery"
         type="text"
         placeholder="search"
@@ -29,8 +29,6 @@
 import { usePosts } from "../hooks/usePosts";
 import { useSortPosts } from "../hooks/useSortedPost";
 import { useSortedAndSearch } from "../hooks/useSortedAndSearch";
-
-// import axios from "axios";
 
 export default {
   name: "Composition",
